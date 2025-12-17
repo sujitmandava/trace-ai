@@ -1,0 +1,109 @@
+checklist_id: contract_approval_v0.1
+doc_type: contract
+version: "0.1.0"
+jurisdiction: generic
+items:
+
+  - id: C-PARTIES-001
+    title: Parties Identified
+    severity: CRITICAL
+    requirement: The contract must clearly identify the legal names of all parties.
+    evidence_queries:
+      doc_query: "between|by and between|party|parties"
+    pass_criteria: Legal names of both parties are explicitly stated.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: REFUSE
+      on_uncertain: REFUSE
+
+  - id: C-EFFECTIVE-DATE-002
+    title: Effective Date Present
+    severity: CRITICAL
+    requirement: The contract must specify an effective date.
+    evidence_queries:
+      doc_query: "effective date|commencement date|as of"
+    pass_criteria: A specific calendar date or clear effective trigger is present.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: REFUSE
+      on_uncertain: ESCALATE
+
+  - id: C-TERM-003
+    title: Term and Termination Clause
+    severity: CRITICAL
+    requirement: The contract must define its term and termination conditions.
+    evidence_queries:
+      doc_query: "term|termination|terminate"
+    pass_criteria: Duration and termination rights are explicitly described.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: ESCALATE
+      on_uncertain: ESCALATE
+
+  - id: C-PAYMENT-004
+    title: Payment Terms
+    severity: CRITICAL
+    requirement: The contract must specify payment terms or explicitly state no payment.
+    evidence_queries:
+      doc_query: "payment|fees|compensation|no charge"
+    pass_criteria: Payment obligations or lack thereof are unambiguous.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: REFUSE
+      on_uncertain: ESCALATE
+
+  - id: C-CONFIDENTIALITY-005
+    title: Confidentiality Clause
+    severity: CRITICAL
+    requirement: The contract must address confidentiality obligations or explicitly disclaim them.
+    evidence_queries:
+      doc_query: "confidential|non-disclosure|confidentiality"
+    pass_criteria: Confidentiality obligations are clearly defined or explicitly excluded.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: ESCALATE
+      on_uncertain: ESCALATE
+
+  - id: C-LIABILITY-006
+    title: Limitation of Liability
+    severity: CRITICAL
+    requirement: The contract must define limitations on liability or explicitly state none.
+    evidence_queries:
+      doc_query: "limitation of liability|liability cap|liability"
+    pass_criteria: Liability limitations are explicitly stated or risk is escalated.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: ESCALATE
+      on_uncertain: ESCALATE
+
+  - id: C-GOVERNING-LAW-007
+    title: Governing Law and Jurisdiction
+    severity: CRITICAL
+    requirement: The contract must specify governing law and jurisdiction.
+    evidence_queries:
+      doc_query: "governing law|jurisdiction|venue"
+    pass_criteria: Governing law and forum are clearly identified.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: REFUSE
+      on_uncertain: ESCALATE
+
+  - id: C-SIGNATURES-008
+    title: Signature Blocks
+    severity: CRITICAL
+    requirement: The contract must include signature blocks for all parties.
+    evidence_queries:
+      doc_query: "signature|signed|by:"
+    pass_criteria: Signature blocks exist for each party.
+    expected_evidence:
+      min_quotes: 1
+    decision_guidance:
+      on_fail: REFUSE
+      on_uncertain: ESCALATE
