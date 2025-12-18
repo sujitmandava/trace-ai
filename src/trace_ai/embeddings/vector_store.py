@@ -2,7 +2,10 @@
 
 import faiss
 import numpy as np
+import json
+from pathlib import Path
 from typing import List, Dict
+
 
 class VectorStore:
     def __init__(self, dim: int):
@@ -24,5 +27,21 @@ class VectorStore:
                 "metadata": self.metadata[idx],
                 "score": float(score)
             })
-
         return results
+
+    def save(self, path: Path):
+        path.mkdir(parents=True, exist_ok=True)
+        faiss.write_index(self.index, str(path / "index.faiss"))
+        with open(path / "metadata.json", "w") as f:
+            json.dump(self.metadata, f)
+
+    @classmethod
+    def load(cls, path: Path):
+        index = faiss.read_index(str(path / "index.faiss"))
+        with open(path / "metadata.json") as f:
+            metadata = json.load(f)
+
+        store = cls(index.d)
+        store.index = index
+        store.metadata = metadata
+        return store

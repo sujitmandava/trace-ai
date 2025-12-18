@@ -1,0 +1,20 @@
+THIS AGREEMENT is entered into between Alpha Corp and Beta LLC.
+
+Effective Date: January 1, 2024.
+
+Term and Termination:
+This Agreement shall continue for one year unless terminated by either party with 30 days notice.
+
+Payment Terms:
+Beta LLC shall pay Alpha Corp $10,000 per year.
+
+Confidentiality:
+Each party agrees to maintain confidentiality.
+
+Limitation of Liability:
+Liability is limited to fees paid under this Agreement.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement.
+
+Alpha Corp: ___________________
+Beta LLC: ___________________
