@@ -1,8 +1,8 @@
 # src/trace_ai/agent/orchestrator.py
+from __future__ import annotations
 from trace_ai.observability.logger import AuditLogger
 from pathlib import Path
 
-from __future__ import annotations
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -27,7 +27,7 @@ class ComplianceOrchestrator:
         retriever,
         *,
         tau_uncertain_rate: float = 0.25,
-        audit_log_path: Path = Path("logs/audit.jsonl")
+        audit_log_path: Path = Path("logs/audit.json")
     ):
         self.retriever = retriever
         self.tau_uncertain_rate = tau_uncertain_rate
@@ -73,6 +73,6 @@ class ComplianceOrchestrator:
             "run_metadata": run_metadata or {},
         }
 
-        self.audit_logger.log(report)
+        self.logger.log(report)
         
         return report
