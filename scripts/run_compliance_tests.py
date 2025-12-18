@@ -41,6 +41,7 @@ from trace_ai.agent.orchestrator import ComplianceOrchestrator
 
 # print(f"Ingested {len(doc_store.metadata)} chunks.")
 
+# DEV Code -> Will change to a Docker volume mounted storage 
 doc_store = VectorStore.load(ROOT /"storage/doc_store")
 policy_store = VectorStore.load(ROOT /"storage/policy_store") \
     if (ROOT / "storage/policy_store").exists() else VectorStore(dim=3072)
@@ -53,7 +54,7 @@ orchestrator = ComplianceOrchestrator(
 )
 
 report = orchestrator.run(
-    doc_id="clean_contract",
+    doc_id="missing_law",
     checklist_path=Path("checklists/contract_approval_v0.1.yaml")
 )
 

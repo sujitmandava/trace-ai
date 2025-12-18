@@ -14,12 +14,14 @@ def evaluate_item(
     retrieved: Dict,
     min_score: float = 0.3
 ) -> Dict:
-
+    print(f"------EVALUATE ITEM------")
     doc_results = retrieved["document_evidence"]
     expected = item.get("expected_evidence", {})
     must_include = expected.get("must_include_terms", [])
     must_exclude = expected.get("must_exclude_terms", [])
     min_quotes = expected.get("min_quotes", 1)
+    # print(f"doc_results: {doc_results}")
+    print(f"expected: {expected}")
 
     # No evidence at all
     if not doc_results:
@@ -30,10 +32,12 @@ def evaluate_item(
         }
 
     ranked = rerank(item["evidence_queries"]["doc_query"], doc_results)
+    for r in ranked:
+        print(r)
 
     citations = []
     for r in ranked:
-        if r["score"] <= min_score:
+        if r["score"] < min_score:
             continue
 
         text = r["metadata"]["text"]
@@ -83,15 +87,21 @@ def evaluate_item(
 def evaluate_checklist(
     checklist: Dict,
     retriever,
+    doc_id
 ) -> List[Dict]:
-
     results = []
-
+    print("------EVALUATE CHECKLIST------")
     for item in checklist["items"]:
+        print(f"\nCurrent Item: {item["evidence_queries"]}")
         evidence = retriever.retrieve(
             doc_query=item["evidence_queries"]["doc_query"],
-            policy_query=item["evidence_queries"].get("policy_query")
+            policy_query=item["evidence_queries"].get("policy_query"),
+            doc_id=doc_id
         )
+        # print(f"Evidence retrieved for item {item}: {evidence}")
+
+        for e in evidence["document_evidence"]:
+            assert e["metadata"]["doc_id"] == doc_id
 
         item_result = evaluate_item(item, evidence)
 

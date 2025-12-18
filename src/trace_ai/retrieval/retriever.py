@@ -19,14 +19,16 @@ class EvidenceRetriever:
     def retrieve(
         self,
         doc_query: str,
-        policy_query: str | None = None
+        policy_query: str | None = None,
+        doc_id: str | None = None
     ) -> Dict[str, List[Dict]]:
-
+        # print(f"retrieve; doc_id = {doc_id}; doc_query = {doc_query}")
         query_embedding = embed_texts([doc_query])[0]
 
         doc_results = self.doc_store.search(
             query_embedding=query_embedding,
-            k=self.top_k
+            k=self.top_k,
+            doc_id=doc_id
         )
 
         policy_results = []
