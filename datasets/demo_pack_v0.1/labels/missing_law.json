@@ -1,0 +1,6 @@
+{
+    "doc_id": "missing_law",
+    "expected_decision": "REFUSE",
+    "expected_missing_items": ["C-GOVERNING-LAW-007"]
+  }
+  

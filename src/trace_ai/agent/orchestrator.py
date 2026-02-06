@@ -47,7 +47,7 @@ class ComplianceOrchestrator:
         checklist = load_checklist(checklist_path)
 
         # 1) Evaluate checklist (retrieval-driven, citation-ready)
-        results: List[Dict[str, Any]] = evaluate_checklist(checklist, self.retriever)
+        results: List[Dict[str, Any]] = evaluate_checklist(checklist, self.retriever, doc_id)
 
         # 2) Decision gate (deterministic)
         decision_summary = decide(
