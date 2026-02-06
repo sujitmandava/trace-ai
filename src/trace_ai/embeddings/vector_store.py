@@ -12,14 +12,22 @@ class VectorStore:
         self.index = faiss.IndexFlatIP(dim)
         self.metadata: List[Dict] = []
 
+    @staticmethod
+    def _normalize(vectors: np.ndarray) -> np.ndarray:
+        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+        norms[norms == 0] = 1.0
+        return vectors / norms
+
     def add(self, embeddings: List[List[float]], metadatas: List[Dict]):
         vectors = np.array(embeddings).astype("float32")
+        vectors = self._normalize(vectors)
         self.index.add(vectors)
         self.metadata.extend(metadatas)
 
     def search(self, query_embedding: List[float], *, k: int = 5, doc_id: str | None = None, oversample: int = 5):
         # print(f"store search; doc_id = {doc_id};")
         q = np.array([query_embedding]).astype("float32")
+        q = self._normalize(q)
         # retrieve more than needed to allow filtering
         distances, indices = self.index.search(q, k)
 
